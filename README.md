@@ -10,17 +10,14 @@
   <img src="https://avatars.githubusercontent.com/SeongEon-Kim" width="100" />
   <br>김성언
 </a>
-&nbsp;&nbsp;&nbsp;
 <a href="https://github.com/Eundding">
   <img src="https://avatars.githubusercontent.com/Eundding" width="100" />
   <br>이은정
 </a>
-&nbsp;&nbsp;&nbsp;
 <a href="https://github.com/tenaan">
   <img src="https://avatars.githubusercontent.com/tenaan" width="100" />
   <br>안태현
 </a>
-&nbsp;&nbsp;&nbsp;
 <a href="https://github.com/chaeyeon-h">
   <img src="https://avatars.githubusercontent.com/u/chaeyeon-h" width="100" />
   <br>허채연
