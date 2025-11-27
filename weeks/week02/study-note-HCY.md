@@ -121,47 +121,51 @@ $$
  
 - query와 key vector간의 **내적**을 통해 입력 토큰에 얼마나 주목할지 계산하고 이를 저장한다.
 
-- 토큰마다 키 벡터와 값 벡터가 있기 때문에 sequence가 길어질수록 많은 데이터를 계산하고 저장해야하기 때문에 transformer model의 context의 길이를 늘리는 일이 어려움으로 남아있다. (**단, 파라미터 수에는 영향을 미치지 않는다**(
+- 토큰마다 키 벡터와 값 벡터가 있기 때문에 sequence가 길어질수록 많은 데이터를 계산하고 저장해야하기 때문에 transformer model의 context의 길이를 늘리는 일이 어려움으로 남아있다. (**단, 파라미터 수에는 영향을 미치지 않는다**)
 
-#### 1. multi-head attention
+### 1. multi-head attention
 
 
 - cnn에서도 filter를 여러 개 두는 것이 더 좋은 것처럼, 여러개 쌓자.
 
 - 모든 어텐션 헤드의 출력은 이어 붙여진다. (concat)
 
-- concat한 결과는 출력 투영 행렬을 통과하고 연산 단계로 넘어간다. 
-
-#### 2. transformer block
-
-![](https://velog.velcdn.com/images/algorithm_cell/post/05762911-e165-49d4-a64d-28dbfb5cb40c/image.png)
-
-- 트랜스포머는 여러개의 트랜스포머 블록으로 구성된다.
-
-- 정확한 내용은 모델마다 다르지만, 일반적으로 attention module, MLP module을 포함한다.
-
-
-### 3. attention module
-
-- query, key, value, 출력 투영이라는 4개의 가중치 행렬로 이루어져있다.
-
-### 4. MLP module
-
-- 비선형 활성화 함수로 구분된 선형 레이어들로 구성된다.
-
-- 선형 레이어는 Feed Foward layer라고 부르기도 한다.
+- concat한 결과는 출력 투영 행렬을 통과하고 연산 단계로 넘어간다.
 
 ---
+![](https://velog.velcdn.com/images/algorithm_cell/post/05762911-e165-49d4-a64d-28dbfb5cb40c/image.png)
+	
 
-### 5. transformer block 이전 
+### 2. transformer block
+
+
+- 트랜스포머는 여러개의 트랜스포머 블록으로 구성된다.
+	
+- 정확한 내용은 모델마다 다르지만, 일반적으로 attention module, MLP module을 포함한다.
+	
+	
+	**1. attention module**
+	
+	- query, key, value, 출력 투영이라는 4개의 가중치 행렬로 이루어져있다.
+	
+	**2. MLP module**
+	
+	- 비선형 활성화 함수로 구분된 선형 레이어들로 구성된다.
+	
+	- 선형 레이어는 Feed Foward layer라고 부르기도 한다.
+
+
+
+### 3. transformer block 이전
 
 - **임베딩 모듈** : 임베딩 벡터로 변환하는 **임베딩 행렬** + 위치 정보를 추가해주는 **위치 임베딩 행렬**
 
 - 임베딩 행렬과 위치 임베딩 행렬 정보를 단순 합한다.
 
-### 6. transformer block 이후 
+### 4. transformer block 이후
 
 - **출력 레이어** : 모델 출력을 샘플링하는 데 사용되는 토큰 확률로 매핑한다. 
+
 
 
 ### 다른 모델의 아키텍쳐
@@ -299,7 +303,9 @@ $$
 
 비교 데이터만으로 모델이 구체적인 점수를 매기도록 하려면, **목적 함수**를 잘 설계해야한다.
 목적 함수는 **선호 응답과 비선호 응답의 출력 점수 차이를 크게 하는 것이다.**
+
 ![](https://velog.velcdn.com/images/algorithm_cell/post/d9517e27-fc5c-4428-a2bf-5b1b349a6147/image.png)
+
 ![](https://velog.velcdn.com/images/algorithm_cell/post/ff87f197-21e2-4832-8085-5feee54b878e/image.png)
 
 ### 2. 보상 모델을 통한 파인튜닝
@@ -319,8 +325,9 @@ $$
 - 입력이 주어지면 신경망은 **logit vector**를 출력한다. 로짓은 확률 값을 나타내지는 않기 때문에 *Softmax activation function* 을 홯용해 로짓 값을 확률로 변환해준다. 
 
 
-- 이 경우에는 다음 토큰으로 올바른 것에 대한 로짓 값이 출력되었다.
 ![](https://velog.velcdn.com/images/algorithm_cell/post/0707f7be-22ad-414e-97eb-32843d98a809/image.png)
+
+- 이 경우에는 다음 토큰으로 올바른 것에 대한 로짓 값이 출력되었다.
 
 
 ## 4-2) 전략
@@ -519,26 +526,28 @@ AI 모델이 응답을 샘플링하는 방식은 **확률적**이다.
   <img src="https://velog.velcdn.com/images/algorithm_cell/post/65c06f74-04e2-4f76-bff2-e9869b561cb7/image.png" />
 <p align="center">RLHF와 SFT를 모두 사용하는 모델이 더 환각이 심한 예시</p>
 
-### 3. 창의성
-
-파운데이션 모델은 대규모 데이터셋으로부터 학습되기 때문에, 그 안에 다양한 가능성들이 담겨 있다. 또한 이는 수많은 사람의 의견과 관점이 반영된 결과이다. 
-
-
-
 ### 환각을 줄일 수 있는 방법
 
-### 1번 문제에 대한 해결책
+**1번 문제에 대한 해결책**
 
 **1. 강화학습을 활용**해 모델이 **사용자가 제공한 프롬프트**와 **모델이 생성한 토큰**을 **구분하도록** 만든다.
 
 **2. 지도학습을 활용**해 **학습 데이터에 사실과 반사실적 데이터를 모두 포함시킨다.**
 
 
-### 2번 문제에 대한 해결책
+**2번 문제에 대한 해결책**
 
 자신이 아는 정보만을 바탕으로 응답하도록 강제한다.
 
 **1. 응답에 대해 모델에게 응답의 근거가 되는 출처를 검색하도록 요청한다.**
 
 **2. 강화학습을 활용**해 모델이 환각 현상을 보일 때 더 큰 불이익을 준다.
+
+
+
+### 3. 창의성
+
+파운데이션 모델은 대규모 데이터셋으로부터 학습되기 때문에, 그 안에 다양한 가능성들이 담겨 있다. 또한 이는 수많은 사람의 의견과 관점이 반영된 결과이다. 
+
+
 
